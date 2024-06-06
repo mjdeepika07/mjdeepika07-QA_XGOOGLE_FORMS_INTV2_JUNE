@@ -17,7 +17,7 @@ public class App {
 
         tests.TC_01_navigateToGoogleFormUrl();
         tests.TC_02_enterName();
-        // tests.TC_03_whyAutomation();
+        tests.TC_03_whyAutomation();
         // tests.TC_04_howMuchAutomationExp();
         
 

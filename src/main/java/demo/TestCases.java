@@ -54,7 +54,7 @@ public class TestCases {
         
         System.out.println("Start Test case: TC_02_enterName");
         WebElement weName = driver.findElement(By.xpath("//div//span[text()='Name']/ancestor::div[@class='geS5n']//input"));
-        String userName = "Deepika MJ";
+        String userName = "Crio Learner";
         wrapperMethod_SendKeys(driver, weName, userName);
         System.out.println("End Test case: TC_02_enterName");
 
@@ -62,17 +62,33 @@ public class TestCases {
 
     }
 
+    /*
+     * Pseudo code:
+     * Get the epoch time
+     * Concatenate the input string with the epoch time
+     * Locate the webelement using Locator xpath : //span[text()='Why are you practicing Automation?']/ancestor::div[@class='z12JJ']/following-sibling::div//textarea
+     * Call the wrapperMethod_SendKeys() method by passing the driver, webelement and the input string
+     */
     //@Test
-    // public void TC_03_whyAutomation() throws InterruptedException{
+    public void TC_03_whyAutomation() throws InterruptedException{
+        try{
 
-    //     System.out.println("Start Test case: TC_03_whyAutomation");
-    //     long epochTime = System.currentTimeMillis()/1000;
-    //     WebElement weWhyAutomation = driver.findElement(By.xpath("//span[text()='Why are you practicing Automation?']/ancestor::div[@class='z12JJ']/following-sibling::div//textarea"));
-    //     String whyAutomationAnswer = "I want to be the best QA Engineer! "+epochTime;
-    //     wrapperMethod_SendKeys(driver, weWhyAutomation, whyAutomationAnswer);
-    //     System.out.println("End Test case: TC_03_whyAutomation");
+        System.out.println("Start Test case: TC_03_whyAutomation");
+        //Get the epoch time
+        long epochTime = System.currentTimeMillis()/1000;
+        //Concatenate the input string with the epoch time
+        String whyAutomationAnswer = "I want to be the best QA Engineer! "+epochTime;
+        //Locate the webelement using Locator xpath : //span[text()='Why are you practicing Automation?']/ancestor::div[@class='z12JJ']/following-sibling::div//textarea
+        WebElement weWhyAutomation = driver.findElement(By.xpath("//span[text()='Why are you practicing Automation?']/ancestor::div[@class='z12JJ']/following-sibling::div//textarea"));
+        //Call the wrapperMethod_SendKeys() method by passing the driver, webelement and the input string
+        wrapperMethod_SendKeys(driver, weWhyAutomation, whyAutomationAnswer);
+        System.out.println("End Test case: TC_03_whyAutomation");
 
-    // }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     // public void TC_04_howMuchAutomationExp(){
 
@@ -89,7 +105,7 @@ public class TestCases {
 
 
 
-
+    //Wrapper method to send keys to the input field
     public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
 
         webelement.sendKeys(inputString);
