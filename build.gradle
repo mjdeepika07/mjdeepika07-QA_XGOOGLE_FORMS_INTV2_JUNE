@@ -28,14 +28,30 @@ dependencies {
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     implementation 'org.seleniumhq.selenium:selenium-java:4.14.0'
 
+    // https://mvnrepository.com/artifact/org.testng/testng
+    testImplementation 'org.testng:testng:7.10.2'
+
+
 }
 
-//task startScript(type:Exec) {
+// task startScript(type:Exec) {
 //    commandLine './selenium-run.sh'
-//}
+// }
 
-//run.dependsOn startScript
+// run.dependsOn startScript
 
-//test.dependsOn startScript
+// test.dependsOn startScript
+
+
+test{
+    useTestNG(){
+        suites 'src/test/resources/testng.xml'
+    }
+    testLogging{
+        showStandardStreams = true
+        events "passed","skipped","failed"
+    }
+
+}
 
 mainClassName = 'demo.App'
