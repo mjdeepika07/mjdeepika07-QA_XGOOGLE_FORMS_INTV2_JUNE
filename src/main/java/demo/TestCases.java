@@ -49,18 +49,18 @@ public class TestCases {
         System.out.println("End Test case: TC_01_navigateToGoogleFormUrl");
     }
 
-    // //@Test
-    // public void TC_02_enterName()throws InterruptedException{
+    //@Test
+    public void TC_02_enterName()throws InterruptedException{
         
-    //     System.out.println("Start Test case: TC_02_enterName");
-    //     WebElement weName = driver.findElement(By.xpath("//div//span[text()='Name']/ancestor::div[@class='geS5n']//input"));
-    //     String userName = "Deepika MJ";
-    //     wrapperMethod_SendKeys(driver, weName, userName);
-    //     System.out.println("End Test case: TC_02_enterName");
+        System.out.println("Start Test case: TC_02_enterName");
+        WebElement weName = driver.findElement(By.xpath("//div//span[text()='Name']/ancestor::div[@class='geS5n']//input"));
+        String userName = "Deepika MJ";
+        wrapperMethod_SendKeys(driver, weName, userName);
+        System.out.println("End Test case: TC_02_enterName");
 
 
 
-    // }
+    }
 
     //@Test
     // public void TC_03_whyAutomation() throws InterruptedException{
@@ -90,11 +90,11 @@ public class TestCases {
 
 
 
-    // public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
+    public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
 
-    //     webelement.sendKeys(inputString);
-    //         Thread.sleep(5000);
+        webelement.sendKeys(inputString);
+            Thread.sleep(5000);
 
-    // }
+    }
 
 }

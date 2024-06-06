@@ -16,7 +16,7 @@ public class App {
         //TODO: call your test case functions one after other here
 
         tests.TC_01_navigateToGoogleFormUrl();
-        // tests.TC_02_enterName();
+        tests.TC_02_enterName();
         // tests.TC_03_whyAutomation();
         // tests.TC_04_howMuchAutomationExp();
         
