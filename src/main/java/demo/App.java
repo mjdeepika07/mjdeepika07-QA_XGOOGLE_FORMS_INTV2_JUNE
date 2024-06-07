@@ -19,6 +19,7 @@ public class App {
         tests.TC_02_enterName();
         tests.TC_03_whyAutomation();
         tests.TC_04_howMuchAutomationExp();
+        tests.TC_05_skillsLearntAtCrio();
         
 
         //END Tests

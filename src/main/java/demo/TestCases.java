@@ -92,7 +92,13 @@ public class TestCases {
         }
     }
 
-
+    /*
+     * Pseudo code
+     * Get all the available experience options into a list of webelements 'weyearsOfAutomationExpOptions' using the Locator xpath : //div[@class='nWQGrd zwllIb']//span[@class='aDTYNe snByac OvPDhc OIC90c']
+     * Store one experience value to a string 'inputAutomationExp' 
+     * Call the wrapper method 'wrapperMethod_ChooseAutomationExp' and pass 'weyearsOfAutomationExpOptions' and 'inputAutomationExp' along with driver object
+     * 
+     */
     public void TC_04_howMuchAutomationExp() throws InterruptedException{
 
         System.out.println("Start Test case: TC_04_howMuchAutomationExp");
@@ -106,6 +112,28 @@ public class TestCases {
 
     }
 
+    /*
+     * Pseudo Code
+     * Get all the available Skill options into a list of webelements 'weskillsLearntOptions' using the Locator xpath : //div[@class='eBFwI']
+     * Store group of skills learnt in a string array 'inputSkillsLearntStrArray'
+     * Call the wrapper method 'wrapperMethod_SelectSkillsLearnt' and pass 'weskillsLearntOptions' and 'inputSkillsLearntStrArray' along with driver object
+     */
+
+
+    public void TC_05_skillsLearntAtCrio() throws InterruptedException{
+
+        System.out.println("Start Test case: TC_05_skillsLearntAtCrio");
+        List<WebElement> weskillsLearntOptions = driver.findElements(By.xpath("//div[@class='eBFwI']"));
+        String[] inputSkillsLearntStrArray = {"Java","Selenium","TestNG"};
+        wrapperMethod_SelectSkillsLearnt(driver, weskillsLearntOptions, inputSkillsLearntStrArray);
+
+        System.out.println("End Test case: TC_05_skillsLearntAtCrio");
+
+
+
+    }
+    
+
     //Wrapper method to send keys to the input field
     public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
 
@@ -116,11 +144,6 @@ public class TestCases {
 
     //Wrapper method to choose the number of years of automation experience
     public void wrapperMethod_ChooseAutomationExp(ChromeDriver driver, List<WebElement> weyearsOfAutomationExpOptions, String inputAutomationExp) throws InterruptedException{
-
-        // for(WebElement we : weyearsOfAutomationExpOptions){
-
-        //     System.out.println(we);
-        // }
         
         //JavascriptExecutor to scroll into the view of the desired webelement
         JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -128,7 +151,7 @@ public class TestCases {
         for(WebElement eachYearOfAutomationExp : weyearsOfAutomationExpOptions){
             //If the experience is same as that of the input experience
             if(eachYearOfAutomationExp.getText().equals(inputAutomationExp)){
-                System.out.println("The exp selected is : "+eachYearOfAutomationExp.getText());
+                //System.out.println("The exp selected is : "+eachYearOfAutomationExp.getText());
                 //Get the associated radio button of the desired exp option
                 WebElement weSelectYearsOfExpOption = driver.findElement(By.xpath("//div[@class='nWQGrd zwllIb']//div[@class='Od2TWd hYsg7c' and @data-value='"+inputAutomationExp+"']"));
                 js.executeScript("arguments[0].scrollIntoView(true);",weSelectYearsOfExpOption);
@@ -138,6 +161,34 @@ public class TestCases {
                 Thread.sleep(2000);
                 
 
+            }
+
+        }
+
+    }
+
+    //Wrapper method to select the various skills learnt at crio
+    public void wrapperMethod_SelectSkillsLearnt(ChromeDriver driver, List<WebElement> weskillsLearntOptions, String[] inputSkillsLearntStrArray) throws InterruptedException{
+        
+        //JavascriptExecutor to scroll into the view of the desired webelement
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        //For each skill available(outer for each loop), iterate all the learnt skills passed as input(inner for each loop)
+        for(WebElement weEachSkillLearnt : weskillsLearntOptions){
+            for(String eachInputSkillLearnt : inputSkillsLearntStrArray){
+            //If the available skill is same as that of the input skill learnt
+                if(weEachSkillLearnt.getText().equals(eachInputSkillLearnt)){
+                    //System.out.println("The skill learnt is : "+weEachSkillLearnt.getText());
+                    //Get the associated checkbox of the input skill learnt
+                    WebElement weSelectSkillLearnt = driver.findElement(By.xpath("//div[@class='uVccjd aiSeRd FXLARc wGQFbe BJHAP oLlshd' and @aria-label='"+eachInputSkillLearnt+"']"));
+                    //scroll into the view to find the desired web element
+                    js.executeScript("arguments[0].scrollIntoView(true);",weSelectSkillLearnt);
+                    //Select the select box
+                    weSelectSkillLearnt.click();
+                    //Wait till the selection is completed
+                    Thread.sleep(2000);
+                    
+    
+                }
             }
 
         }
