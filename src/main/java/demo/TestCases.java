@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.openqa.selenium.JavascriptExecutor;
+
 //import io.github.bonigarcia.wdm.WebDriverManager;
 
 // import org.testng.annotations.BeforeSuite;
@@ -90,20 +92,19 @@ public class TestCases {
         }
     }
 
-    // public void TC_04_howMuchAutomationExp(){
 
-    //     System.out.println("Start Test case: TC_04_howMuchAutomationExp");
-    //     List<WebElement> weyearsOfAutomationExpOptions = driver.findElements(By.xpath("//div[@class='nWQGrd zwllIb']"));
-    //     String inputAutomationExp = "0 - 2";
-    //     wrapperMethod_ChooseAutomationExp(driver, weyearsOfAutomationExpOptions, inputAutomationExp);
+    public void TC_04_howMuchAutomationExp() throws InterruptedException{
 
-    //     System.out.println("End Test case: TC_04_howMuchAutomationExp");
+        System.out.println("Start Test case: TC_04_howMuchAutomationExp");
+        List<WebElement> weyearsOfAutomationExpOptions = driver.findElements(By.xpath("//div[@class='nWQGrd zwllIb']//span[@class='aDTYNe snByac OvPDhc OIC90c']"));
+        String inputAutomationExp = "6 - 10";
+        wrapperMethod_ChooseAutomationExp(driver, weyearsOfAutomationExpOptions, inputAutomationExp);
 
-
-
-    // }
+        System.out.println("End Test case: TC_04_howMuchAutomationExp");
 
 
+
+    }
 
     //Wrapper method to send keys to the input field
     public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
@@ -113,4 +114,38 @@ public class TestCases {
 
     }
 
+    //Wrapper method to choose the number of years of automation experience
+    public void wrapperMethod_ChooseAutomationExp(ChromeDriver driver, List<WebElement> weyearsOfAutomationExpOptions, String inputAutomationExp) throws InterruptedException{
+
+        // for(WebElement we : weyearsOfAutomationExpOptions){
+
+        //     System.out.println(we);
+        // }
+        
+        //JavascriptExecutor to scroll into the view of the desired webelement
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        //For each option 
+        for(WebElement eachYearOfAutomationExp : weyearsOfAutomationExpOptions){
+            //If the experience is same as that of the input experience
+            if(eachYearOfAutomationExp.getText().equals(inputAutomationExp)){
+                System.out.println("The exp selected is : "+eachYearOfAutomationExp.getText());
+                //Get the associated radio button of the desired exp option
+                WebElement weSelectYearsOfExpOption = driver.findElement(By.xpath("//div[@class='nWQGrd zwllIb']//div[@class='Od2TWd hYsg7c' and @data-value='"+inputAutomationExp+"']"));
+                js.executeScript("arguments[0].scrollIntoView(true);",weSelectYearsOfExpOption);
+                //Click the radio button
+                weSelectYearsOfExpOption.click();
+                //Wait till the selection is completed
+                Thread.sleep(2000);
+                
+
+            }
+
+        }
+
+    }
+
 }
+
+
+
+
