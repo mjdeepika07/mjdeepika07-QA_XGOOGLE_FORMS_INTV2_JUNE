@@ -20,6 +20,7 @@ public class App {
         tests.TC_03_whyAutomation();
         tests.TC_04_howMuchAutomationExp();
         tests.TC_05_skillsLearntAtCrio();
+        tests.TC_06_titleToBeAddressed();
         
 
         //END Tests

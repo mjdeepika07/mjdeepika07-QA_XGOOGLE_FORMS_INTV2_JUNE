@@ -107,9 +107,7 @@ public class TestCases {
         wrapperMethod_ChooseAutomationExp(driver, weyearsOfAutomationExpOptions, inputAutomationExp);
 
         System.out.println("End Test case: TC_04_howMuchAutomationExp");
-
-
-
+        
     }
 
     /*
@@ -119,20 +117,46 @@ public class TestCases {
      * Call the wrapper method 'wrapperMethod_SelectSkillsLearnt' and pass 'weskillsLearntOptions' and 'inputSkillsLearntStrArray' along with driver object
      */
 
-
     public void TC_05_skillsLearntAtCrio() throws InterruptedException{
 
         System.out.println("Start Test case: TC_05_skillsLearntAtCrio");
         List<WebElement> weskillsLearntOptions = driver.findElements(By.xpath("//div[@class='eBFwI']"));
         String[] inputSkillsLearntStrArray = {"Java","Selenium","TestNG"};
+
+        //JavascriptExecutor to scroll into the view of the desired webelement
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+
+        //scroll into the view to find the desired web element.
+        js.executeScript("arguments[0].scrollIntoView(true);",weskillsLearntOptions.get(0));
+
         wrapperMethod_SelectSkillsLearnt(driver, weskillsLearntOptions, inputSkillsLearntStrArray);
 
         System.out.println("End Test case: TC_05_skillsLearntAtCrio");
 
+    }
 
+    
+
+    /*
+     * Pseudo code
+     * Get all the avaialble titles from the dropdown list and store them in List of webelements 'weTitlesToBeAddressed' using the locator xpath: //div[contains(@class,'MocG8c HZ3kWc mhLiyf OIC90c LMgvRb') and @role='option']
+     * Store the desired title in 'desiredTitleStr'
+     * Call the 'wrapperMethod_SelectDesiredTitle' method by passing the 'weTitlesToBeAddressed', 'desiredTitleStr' along with driver
+     */
+    public void TC_06_titleToBeAddressed() throws InterruptedException{
+
+        System.out.println("Start Test case: TC_06_titleToBeAddressed");
+        List<WebElement> weTitlesToBeAddressed = driver.findElements(By.xpath("//div[contains(@class,'MocG8c HZ3kWc mhLiyf OIC90c LMgvRb') and @role='option']"));
+        String desiredTitleStr = "Mrs";
+        wrapperMethod_SelectDesiredTitle(driver, weTitlesToBeAddressed, desiredTitleStr);
+        Thread.sleep(2000);
+        System.out.println("End Test case: TC_06_titleToBeAddressed");
 
     }
-    
+
+
+
+
 
     //Wrapper method to send keys to the input field
     public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
@@ -169,9 +193,7 @@ public class TestCases {
 
     //Wrapper method to select the various skills learnt at crio
     public void wrapperMethod_SelectSkillsLearnt(ChromeDriver driver, List<WebElement> weskillsLearntOptions, String[] inputSkillsLearntStrArray) throws InterruptedException{
-        
-        //JavascriptExecutor to scroll into the view of the desired webelement
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    
         //For each skill available(outer for each loop), iterate all the learnt skills passed as input(inner for each loop)
         for(WebElement weEachSkillLearnt : weskillsLearntOptions){
             for(String eachInputSkillLearnt : inputSkillsLearntStrArray){
@@ -180,14 +202,11 @@ public class TestCases {
                     //System.out.println("The skill learnt is : "+weEachSkillLearnt.getText());
                     //Get the associated checkbox of the input skill learnt
                     WebElement weSelectSkillLearnt = driver.findElement(By.xpath("//div[@class='uVccjd aiSeRd FXLARc wGQFbe BJHAP oLlshd' and @aria-label='"+eachInputSkillLearnt+"']"));
-                    //scroll into the view to find the desired web element
-                    js.executeScript("arguments[0].scrollIntoView(true);",weSelectSkillLearnt);
                     //Select the select box
                     weSelectSkillLearnt.click();
                     //Wait till the selection is completed
                     Thread.sleep(2000);
                     
-    
                 }
             }
 
@@ -195,7 +214,41 @@ public class TestCases {
 
     }
 
+
+
+    
+    //Wrapper method to select the desired input title
+    public void wrapperMethod_SelectDesiredTitle(ChromeDriver driver, List<WebElement> weTitlesToBeAddressed, String desiredTitleStr) throws InterruptedException{
+        //Search and Click on the Titles drop down
+        WebElement weClickChoose = driver.findElement(By.xpath("(//div[@class='MocG8c HZ3kWc mhLiyf LMgvRb KKjvXb DEh1R'])[1]"));
+        weClickChoose.click();
+        
+        //For each listed title
+        for(WebElement weEachTitle : weTitlesToBeAddressed){
+            
+            //If the available title is same as that of the desired input title
+            if(weEachTitle.getAttribute("data-value").equals(desiredTitleStr)){
+                //wait for the element to be clickable . without wait got exception: Element not interactable
+                WebElement weTitleToClick = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'MocG8c HZ3kWc mhLiyf OIC90c LMgvRb') and @role='option' and @data-value='"+desiredTitleStr+"']")));
+                //Select the select box
+                weTitleToClick.click();
+                break;
+                
+            }
+            
+
+        }
+
+    }
+
 }
+
+
+
+
+
+
+
 
 
 
