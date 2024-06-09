@@ -223,9 +223,32 @@ public class TestCases {
         Thread.sleep(2000);
         wrapperMethod_clickCancel(driver);
         System.out.println("End Test case: TC_09_getAmazonUrl");
-
+    
 
     }
+
+    /*
+     * Pseudo code
+     * Locate a WebElement 'weSubmitButton' using the Locator xpath : //span[text()='Submit']
+     * Call the wrapper method wrapperMethod_clickSubmit() by passing the driver object 
+     * and the 'weSubmitButton' WebElement to click the submit button
+     */
+    public void TC_10_clickSubmit() throws InterruptedException{
+
+        System.out.println("Start Test case: TC_10_clickSubmit");
+
+        WebElement weSubmitButton = driver.findElement(By.xpath("//span[text()='Submit']"));
+        wrapperMethod_clickSubmit(driver, weSubmitButton);
+
+        System.out.println("End Test case: TC_10_clickSubmit");
+        Thread.sleep(2000);
+        
+        
+    }
+
+
+
+
 
     //Wrapper Method to go to the desired url
     public void wrapperMethod_getUrl(ChromeDriver driver, String url){
@@ -398,6 +421,13 @@ public class TestCases {
         //Click on the cancel button by using alert.dismiss() method
         alert.dismiss();
 
+
+    }
+
+    //Wrapper method to click on the button
+    public void wrapperMethod_clickSubmit(ChromeDriver driver, WebElement weSubmitButton){
+
+        weSubmitButton.click();
 
     }
 

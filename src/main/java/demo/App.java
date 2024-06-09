@@ -24,6 +24,7 @@ public class App {
         tests.TC_07_dateSevenDaysAgo();
         tests.TC_08_currentTime24hrsFormat();
         tests.TC_09_getAmazonUrl();
+        tests.TC_10_clickSubmit();
 
         // END Tests
 
