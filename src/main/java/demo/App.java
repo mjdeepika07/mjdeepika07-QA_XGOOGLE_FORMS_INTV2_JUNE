@@ -23,6 +23,7 @@ public class App {
         tests.TC_06_titleToBeAddressed();
         tests.TC_07_dateSevenDaysAgo();
         tests.TC_08_currentTime24hrsFormat();
+        tests.TC_09_getAmazonUrl();
 
         // END Tests
 

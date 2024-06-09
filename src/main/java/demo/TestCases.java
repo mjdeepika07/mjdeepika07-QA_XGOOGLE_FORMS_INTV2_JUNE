@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -64,7 +65,8 @@ public class TestCases {
     public void TC_01_navigateToGoogleFormUrl() throws InterruptedException{
 
         System.out.println("Start Test case: TC_01_navigateToGoogleFormUrl");
-        wrapperMethod_getUrl(driver);
+        String url = "https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform";
+        wrapperMethod_getUrl(driver, url);
         Thread.sleep(5000);
         System.out.println("End Test case: TC_01_navigateToGoogleFormUrl");
     }
@@ -206,12 +208,30 @@ public class TestCases {
 
     }
 
+    /*
+     * Pseudo code
+     * Declare a string variable 'url' and save "https://www.amazon.in/" url
+     * Call wrapperMethod_getUrl() method by passing the driver instance and the amazon url to got to amazon homepage
+     * Call wrapperMethod_clickCancel() method by passing the driver object to dismiss the alert  
+     */
+    public void TC_09_getAmazonUrl() throws InterruptedException{
+
+        System.out.println("Start Test case: TC_09_getAmazonUrl");
+
+        String url = "https://www.amazon.in/";
+        wrapperMethod_getUrl(driver, url);
+        Thread.sleep(2000);
+        wrapperMethod_clickCancel(driver);
+        System.out.println("End Test case: TC_09_getAmazonUrl");
+
+
+    }
 
     //Wrapper Method to go to the desired url
-    public void wrapperMethod_getUrl(ChromeDriver driver){
+    public void wrapperMethod_getUrl(ChromeDriver driver, String url){
         //If the current URL is not same as the desired url, fetch the desired url
-        if(!driver.getCurrentUrl().equals("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform"))
-            driver.get("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
+        if(!driver.getCurrentUrl().equals(url))
+            driver.get(url);
     }
 
 
@@ -365,6 +385,23 @@ public class TestCases {
         Thread.sleep(3000);
 
     }
+
+    //Wrapper method to dismiss the alert
+    public void wrapperMethod_clickCancel(ChromeDriver driver){
+
+        //Wait till the alert window is displayed
+        wait.until(ExpectedConditions.alertIsPresent());
+
+        //Create an alert variable and switch the context to the alert
+        Alert alert = driver.switchTo().alert();
+        
+        //Click on the cancel button by using alert.dismiss() method
+        alert.dismiss();
+
+
+    }
+
+
 
 
 
