@@ -247,6 +247,24 @@ public class TestCases {
     }
 
 
+    //Wrapper method to check if the success message is displayed on the screen and then print it on the console
+    public void TC_11_printSuccessMessage(){
+
+        System.out.println("Start Test case: TC_11_printSuccessMessage");
+
+        //Locate a WebElement 'weSuccessMessage' using the locator xpath : //div[@class='vHW8K']
+        WebElement weSuccessMessage = driver.findElement(By.xpath("//div[@class='vHW8K']"));
+    
+        String expectedSuccessMessage = "Thanks for your response, Automation Wizard!";
+
+        //Wrapper method to compare the actual and expected success messages
+        wrapperMethod_compareText(driver, weSuccessMessage, expectedSuccessMessage);  
+    
+        System.out.println("End Test case: TC_11_printSuccessMessage");
+
+    }
+
+
 
 
 
@@ -431,14 +449,17 @@ public class TestCases {
 
     }
 
+    //Wrapper method to compare the success message
+    public void wrapperMethod_compareText(ChromeDriver driver, WebElement weSuccessMessage, String expectedSuccessMessage){
+
+         //Get the text from the WebElement using the getText() method and then compare it with the expected text
+         if(weSuccessMessage.getText().equals("Thanks for your response, Automation Wizard!")){
+            //Print the success message on the console
+            System.out.println(weSuccessMessage.getText());
+        }  
 
 
-
-
-
-
-
-
+    }
 
 
 }
