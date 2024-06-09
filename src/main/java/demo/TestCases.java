@@ -1,7 +1,11 @@
 package demo;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import javax.swing.text.DateFormatter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -107,7 +111,7 @@ public class TestCases {
         wrapperMethod_ChooseAutomationExp(driver, weyearsOfAutomationExpOptions, inputAutomationExp);
 
         System.out.println("End Test case: TC_04_howMuchAutomationExp");
-        
+
     }
 
     /*
@@ -154,7 +158,20 @@ public class TestCases {
 
     }
 
+    /*
+     * Pseudo code
+     * Call a wrapper method to send the seven days before current date in 'dd/MM/yyyy' format
+     */
+    public void TC_07_dateSevenDaysAgo() throws InterruptedException{
 
+        System.out.println("Start Test case: TC_07_dateSevenDaysAgo");
+        Thread.sleep(10000);
+        wrapperMethod_getCurrentDateMinusSeven(driver);
+        Thread.sleep(5000);
+        System.out.println("End Test case: TC_07_dateSevenDaysAgo");
+
+
+    }
 
 
 
@@ -214,8 +231,6 @@ public class TestCases {
 
     }
 
-
-
     
     //Wrapper method to select the desired input title
     public void wrapperMethod_SelectDesiredTitle(ChromeDriver driver, List<WebElement> weTitlesToBeAddressed, String desiredTitleStr) throws InterruptedException{
@@ -240,6 +255,39 @@ public class TestCases {
         }
 
     }
+
+    //Wrapper method to send the seven days before current date as input in 'dd/MM/yyyy' format
+    public void wrapperMethod_getCurrentDateMinusSeven(ChromeDriver driver){
+
+        //Get the local date using LocalDate.now() method and store it in a LocalDate variable
+        LocalDate date = LocalDate.now();
+
+        //Use the DateTimeFormatter.ofPattern("dd/MM/yyyy") method to the desired date format and store it in DateTimeFormatter variable
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        //Use LocalDate.minusDays() method to subtract the desired days from the current date to get the new date
+        LocalDate newdate = date.minusDays(7);
+
+        //Locate the webElement using Locator xpath : (//input[@class='whsOnd zHQkBf'])[2]
+        WebElement weCalendar = driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[2]"));
+
+        // //Scroll down to find the desired element using JavascriptExecutor
+        // JavascriptExecutor js = (JavascriptExecutor)driver;
+        // js.executeScript("arguments[0].scrollIntoView(true);", weCalendar);
+        
+        //Convert the new date into desired date format using newdate.format(dateFormatter) 
+        //and again convert to String using toString() method
+        weCalendar.sendKeys(newdate.format(dateFormatter).toString());
+
+    }
+
+
+
+
+
+
+
+
 
 }
 

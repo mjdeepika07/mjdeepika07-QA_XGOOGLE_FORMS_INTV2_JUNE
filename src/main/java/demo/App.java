@@ -21,9 +21,9 @@ public class App {
         tests.TC_04_howMuchAutomationExp();
         tests.TC_05_skillsLearntAtCrio();
         tests.TC_06_titleToBeAddressed();
-        
+        tests.TC_07_dateSevenDaysAgo();
 
-        //END Tests
+        // END Tests
 
 
         tests.endTest(); // End your test by clearning connections and closing browser
