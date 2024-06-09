@@ -22,6 +22,7 @@ public class App {
         tests.TC_05_skillsLearntAtCrio();
         tests.TC_06_titleToBeAddressed();
         tests.TC_07_dateSevenDaysAgo();
+        tests.TC_08_currentTime24hrsFormat();
 
         // END Tests
 

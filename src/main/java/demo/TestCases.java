@@ -2,10 +2,9 @@ package demo;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.swing.text.DateFormatter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,37 +24,60 @@ import org.openqa.selenium.JavascriptExecutor;
 
 
 public class TestCases {
+    //Initialize a ChromeDriver variable 
     ChromeDriver driver;
+    
+    //Initialize a WebDriverWait variable 
     WebDriverWait wait;
+
+    //TestCases Constructor
     public TestCases()
     {
         System.out.println("Constructor: TestCases");
-        //WebDriverManager.chromedriver().timeout(30).setup();
+        //Create a chrome driver objectr
         driver = new ChromeDriver();
+        //Maximize the browser window
         driver.manage().window().maximize();
+        //For each webElement search, wait implicitly for 5 seconds
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        //Create a WebDriverWait object with a timeout of 10 seconds, this object 
+        //can be used to perform explicit waits for desired expected conditions       
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     
+    //Tear Down method
     public void endTest()
     {
         System.out.println("End Test: TestCases");
+        //Close the current chrome browser
         driver.close();
+        //Close all opened chrome browsers
         driver.quit();
 
     }
 
-    //@Test
+    /*
+     * Pseudo Code
+     * Use wrapperMethod_getUrl() to fetch the desired url using driver.get(url) method
+     */
     public void TC_01_navigateToGoogleFormUrl() throws InterruptedException{
 
         System.out.println("Start Test case: TC_01_navigateToGoogleFormUrl");
-        driver.get("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
+        wrapperMethod_getUrl(driver);
         Thread.sleep(5000);
         System.out.println("End Test case: TC_01_navigateToGoogleFormUrl");
     }
 
-    //@Test
+    
+    /*
+     * Pseudo Code
+     * This Test case is used to enter name
+     * Locate the WebElement weName using the locator xpath : //div//span[text()='Name']/ancestor::div[@class='geS5n']//input
+     * Initialize the String variable weName to "Crio Learner"
+     * Call the wrapperMethod_SendKeys() by passing the driver, weName and input userName
+     * 
+     */
     public void TC_02_enterName()throws InterruptedException{
         
         System.out.println("Start Test case: TC_02_enterName");
@@ -173,11 +195,29 @@ public class TestCases {
 
     }
 
+    //Call a Wrapper method wrapperMethod_sendCurrentTime24hrsFormat() to send the hours and minutes separately
+    public void TC_08_currentTime24hrsFormat() throws InterruptedException{
+
+        System.out.println("Start Test case: TC_08_currentTime24hrsFormat");
+
+        wrapperMethod_sendCurrentTime24hrsFormat(driver);
+
+        System.out.println("End Test case: TC_08_currentTime24hrsFormat");
+
+    }
+
+
+    //Wrapper Method to go to the desired url
+    public void wrapperMethod_getUrl(ChromeDriver driver){
+        //If the current URL is not same as the desired url, fetch the desired url
+        if(!driver.getCurrentUrl().equals("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform"))
+            driver.get("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
+    }
 
 
     //Wrapper method to send keys to the input field
     public void wrapperMethod_SendKeys(ChromeDriver driver, WebElement webelement, String inputString) throws InterruptedException{
-
+        //Pass the string variable inputString using webelement.sendKeys() method 
         webelement.sendKeys(inputString);
             Thread.sleep(5000);
 
@@ -278,6 +318,51 @@ public class TestCases {
         //Convert the new date into desired date format using newdate.format(dateFormatter) 
         //and again convert to String using toString() method
         weCalendar.sendKeys(newdate.format(dateFormatter).toString());
+
+    }
+
+
+    /*
+     * Pseudo code
+     * Get the current time using LocalTime class and LocalTime.now() method
+     * Get the desired time pattern(HH:mm) in 24hrs format using DateTimeFormatter class and DateTimeFormatter.ofPattern() method
+     * Use the split() method and pass the delimiter ':' to get the hrs and mins values separately and store them in an array hrsMinsStr[]
+     * Locate the WebElement weHoursIn24hrFormat using Locator xpath : (//input[@class='whsOnd zHQkBf'])[3] to pass the hrs(HH) value
+     * Send the hrsMinsStr[0](HH value) using the weHoursIn24hrFormat.sendKeys() method
+     * Locate the WebElement weMinsIn24hrFormat using Locator xpath : (//input[@class='whsOnd zHQkBf'])[4] to pass the Mins(mm) value
+     * Send the hrsMinsStr[1](mm value) using the weMinsIn24hrFormat.sendKeys() method 
+     */
+    public void wrapperMethod_sendCurrentTime24hrsFormat(ChromeDriver driver) throws InterruptedException{
+
+        //Get the current time using LocalTime class and LocalTime.now() method
+        LocalTime currentTime = LocalTime.now();
+
+        //Get the desired time pattern(HH:mm) in 24hrs format using DateTimeFormatter class and DateTimeFormatter.ofPattern() method
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        // System.out.println("currentTime.format(timeFormatter) : "+ currentTime.format(timeFormatter));
+
+        //Use the split() method and pass the delimiter ':' to get the hrs and mins values separately and store them in an array hrsMinsStr[]
+        String[] hrsMinsStr = currentTime.format(timeFormatter).split(":");
+        // System.out.println("Hours : " + hrsMinsStr[0]);
+        // System.out.println("Minutes : " + hrsMinsStr[1]);
+
+        //Locate the WebElement weHoursIn24hrFormat using Locator xpath : (//input[@class='whsOnd zHQkBf'])[3] to pass the hrs(HH) value
+        WebElement weHoursIn24hrFormat = driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[3]"));
+        
+        // //Scroll down to find the desired element using JavascriptExecutor
+        // JavascriptExecutor js = (JavascriptExecutor)driver;
+        // js.executeScript("arguments[0].scrollIntoView(true);", weHoursIn24hrFormat);
+        
+        //Send the hrsMinsStr[0](HH value) using the weHoursIn24hrFormat.sendKeys() method
+        weHoursIn24hrFormat.sendKeys(hrsMinsStr[0]);
+
+        //Locate the WebElement weMinsIn24hrFormat using Locator xpath : (//input[@class='whsOnd zHQkBf'])[4] to pass the Mins(mm) value
+        WebElement weMinutesIn24hrFormat = driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[4]"));
+        
+        //Send the hrsMinsStr[1](mm value) using the weMinsIn24hrFormat.sendKeys() method 
+        weMinutesIn24hrFormat.sendKeys(hrsMinsStr[1]);
+
+        Thread.sleep(3000);
 
     }
 
